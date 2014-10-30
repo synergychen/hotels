@@ -1,6 +1,7 @@
 require "csv"
 require "pry"
 require "./hotel"
+require "./null_hotel"
 
 class HotelDatabase
   def initialize(file)
@@ -29,7 +30,7 @@ class HotelDatabase
   end
 
   def find_hotel(name)
-    @hotels[name]
+    @hotels.fetch(name, NullHotel.new)
   end
 
   def list_hotel(hotel_info)
