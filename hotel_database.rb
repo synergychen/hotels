@@ -1,5 +1,6 @@
 require "csv"
 require "pry"
+require "./hotel"
 
 class HotelDatabase
   def initialize(file)
@@ -17,8 +18,8 @@ class HotelDatabase
 
   def read_hotel_info(file)
     CSV.foreach(file, headers: true) do |row|
-      hotel_name = row["Hotel"]
-      @hotels[hotel_name] = row
+      hotel = Hotel.new(row)
+      @hotels[hotel.name] = hotel
     end
   end
 
@@ -32,10 +33,10 @@ class HotelDatabase
   end
 
   def list_hotel(hotel_info)
-    puts "Name: #{hotel_info["Hotel"]}"
-    puts "Location: #{hotel_info["City"]}"
-    puts "Phone Number: #{hotel_info["Phone Number"]}"
-    puts "Number of Rooms: #{hotel_info["Number of Singles"] + hotel_info["Number of Doubles"]}"
+    puts "Name: #{hotel_info.name}"
+    puts "Location: #{hotel_info.location}"
+    puts "Phone Number: #{hotel_info.phone_number}"
+    puts "Number of Rooms: #{hotel_info.number_of_rooms}"
   end
 end
 
